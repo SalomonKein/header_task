@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: auto;
+            min-width: 320px;
+        }
+
+        header {
+            border-bottom: solid rgb(133, 131, 131) 1px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-logo {
+            width: 115px;
+            height: 35px;
+            margin-left: 17px;
+            margin-top: -8px;
+            cursor: pointer;
+        }
+
+        .header-user-menu-search {
+            display: none;
+        }
+
+        .header-navigation-menu {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin-left: 10px;
+            margin-top: 6px;
+            cursor: pointer;
+        }
+
+        .header-navigation-menu span,
+        .header-navigation-menu::before,
+        .header-navigation-menu::after {
+            display: block;
+            height: 1px;
+            width: 20px;
+            background: #000000;
+            position: absolute;
+        }
+
+        .header-navigation-menu span {
+            margin-top: 5px;
+        }
+
+        .header-navigation-menu::before {
+            content: ' ';
+        }
+
+        .header-navigation-menu::after {
+            content: ' ';
+            margin-top: 10px;
+        }
+
+        .header-search {
+            margin-top: -25px;
+            margin-left: 51px;
+            cursor: pointer;
+        }
+
+        .header-user-menu-wraper {
+            display: flex;
+            align-items: center;
+            margin-top: 1px;
+            margin-right: 16px;
+            font-family: Calibri, Optima, Arial, sans-serif;
+        }
+
+        .bascket {
+            margin-bottom: 3px;
+            margin-right: 25px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .header-surface {
+            height: 34px;
+            display: flex;
+            align-items: center;
+            padding-left: 11px;
+            font-weight: 600;
+            border-bottom: solid rgb(133, 131, 131) 1px;
+            font-family: Calibri, Optima, Arial, sans-serif;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .arrow {
+            width: 7px;
+            height: 7px;
+            margin-left: 11px;
+            border-right: solid black 1px;
+            border-bottom: solid black 1px;
+            transform: rotate(45deg);
+            display: inline-block;
+        }
+
+        .header-navigation-menulist {
+            top: -300px;
+            width: 100%;
+            background-color: #ece6e6;
+            position: absolute;
+            left: 0px;
+            list-style: none;
+            z-index: -2;
+            text-align: left;
+            font-family: Calibri, Optima, Arial, sans-serif;
+            font-size: 14px;
+            transition: all 0.5s ease 0s;
+        }
+
+
+        .header-navigation-menulist li {
+            border: #868484 solid 1px;
+            padding-left: 30px;
+            padding-top: 18px;
+            padding-bottom: 3px;
+            height: 25px;
+            cursor: pointer;
+        }
+
+        .header-navigation-menulist li:hover {
+            background-color: #3d3838;
+            color: #ffffff;
+        }
+
+        .header-navigation-menulist.active {
+            left: 0px;
+            top: 51px;
+            z-index: 2;
+            transition: all 0.5s ease 0s;
+            -webkit-transition: all 0.5s ease 0s;
+            -moz-transition: all 0.5s ease 0s;
+            -ms-transition: all 0.5s ease 0s;
+            -o-transition: all 0.5s ease 0s;
+        }
+
+        .header-navigation-menu.active::before {
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            margin-top: 5px;
+            transition: all 0.3s ease 0s;
+        }
+
+        .header-navigation-menu.active::after {
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            margin-top: 5px;
+            transition: all 0.3s ease 0s;
+            -webkit-transition: all 0.3s ease 0s;
+            -moz-transition: all 0.3s ease 0s;
+            -ms-transition: all 0.3s ease 0s;
+            -o-transition: all 0.3s ease 0s;
+        }
+
+        .header-navigation-menu-up.active {
+            display: none;
+            transition: all 0.3s ease 0s;
+        }
+
+        .header-visible-highscreen-computersforbusiness,
+        .header-visible-highscreen-accesories,
+        .header-visible-highscreen-shopnow,
+        .header-visible-highscreen-support,
+        .header-visible-highscreen-surface,
+        .header-visible-highscreen-computers,
+        .header-visible-highscreen-more,
+        .header-visible-user-menu-allmicro,
+        .header-visible-highscreen {
+            display: none;
+        }
+
+        .header-user-menu-singup {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .header-user-menu-singup:hover::after,
+        .header-user-menu-search:hover::after,
+        .bascket:hover::after {
+            content: attr(data-title);
+            position: absolute;
+            left: -120px;
+            top: 40px;
+            z-index: 1;
+            background: rgba(255, 255, 230, 0.9);
+            font-family: Calibri, Optima, Arial, sans-serif;
+            font-size: 11px;
+            padding: 5px 10px;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+
+        @media (min-width: 860px) {
+            header {
+                border-bottom: none;
+            }
+
+            .header-logo {
+                margin-top: -4px;
+                margin-right: 20px;
+            }
+
+            .header-surface,
+            .header-navigation-wraper {
+                display: none;
+            }
+
+            .header-user-menu-search,
+            .header-visible-highscreen-surface,
+            .header-visible-highscreen-computers,
+            .header-visible-highscreen-more,
+            .header-visible-user-menu-allmicro {
+                display: inline-block;
+            }
+
+            .header-user-menu-wraper {
+                height: 52px;
+                display: flex;
+                align-items: center;
+            }
+
+            .header-user-menu-search {
+                margin-right: 20px;
+                cursor: pointer;
+                position: relative;
+            }
+
+            .header-visible-highscreen {
+                border-left: solid black 2px;
+                flex-grow: 3;
+                height: 23px;
+                display: flex;
+                flex-direction: row;
+                font-family: Calibri, Optima, Arial, sans-serif;
+            }
+
+            .header-visible-highscreen li {
+                margin-left: 17px;
+                margin-top: 3px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .header-visible-highscreen li:hover {
+                border-bottom: solid black 2px;
+            }
+
+            .header-visible-highscreen li:nth-of-type(1) {
+                margin-left: 20px;
+                margin-top: -2px;
+                font-size: 20px;
+                font-weight: 600;
+            }
+
+            .header-visible-user-menu-allmicro {
+                font-size: 14px;
+                margin-top: 1px;
+                margin-right: 26px;
+                cursor: pointer;
+            }
+
+            .header-visible-user-menu-allmicro:hover {
+                border-bottom: solid black 2px;
+                margin-top: 4px;
+
+            }
+
+            .header-visible-user-menu-allmicro .arrow,
+            .header-visible-highscreen .arrow {
+                width: 5px;
+                height: 5px;
+                margin-left: 8px;
+                margin-bottom: 1px;
+            }
+
+            .bascket {
+                margin-bottom: 5px;
+                margin-right: 16px;
+            }
+
+            .header-user-menu-singup {
+                margin-right: -15px;
+            }
+        }
+
+        @media (min-width: 940px) {
+            .header-visible-highscreen-computersforbusiness {
+                display: inline-block;
+            }
+        }
+
+        @media (min-width: 1030px) {
+
+            .header-visible-highscreen-accesories {
+                display: inline-block;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            body {
+                width: 1200px;
+            }
+
+            .header-visible-highscreen-shopnow,
+            .header-visible-highscreen-support {
+                display: inline-block;
+            }
+
+            .header-visible-highscreen-more {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-navigation-wraper">
+            <div class="header-navigation-menu">
+                <span class="header-navigation-menu-up"></span>
+                <ul class="header-navigation-menulist">
+                    <li>Microsoft</li>
+                    <li>Ofice</li>
+                    <li>Xbox</li>
+                    <li>Windows</li>
+                    <li>Support</li>
+                </ul>
+            </div>
+            <div class="header-search">
+                <img src="assets\search.png" alt="search">
+            </div>
+        </div>
+        <img class="header-logo" src="assets\microsoft.png" alt="microsoft_logo">
+        <ul class="header-visible-highscreen">
+            <li class="header-visible-highscreen-surface">Surface</li>
+            <li class="header-visible-highscreen-computers">Computers<span class="arrow"></span></li>
+            <li class="header-visible-highscreen-computersforbusiness">Computers for Business<span class="arrow"></span>
+            </li>
+            <li class="header-visible-highscreen-accesories">Accesories<span class="arrow"></span></li>
+            <li class="header-visible-highscreen-shopnow">Shop now<span class="arrow"></span></li>
+            <li class="header-visible-highscreen-support">Support<span class="arrow"></span> </li>
+            <li class="header-visible-highscreen-more">More<span class="arrow"></span> </li>
+        </ul>
+        <div class="header-user-menu">
+            <div class="header-user-menu-wraper">
+                <div class="header-visible-user-menu-allmicro">All Microsoft<span class="arrow"></span> </div>
+                <div class="header-user-menu-search" data-title="Search Microsoft.com"><img src="assets\search.png"
+                        alt="search"></div>
+                <div class="bascket" data-title="0 items in shopping card"><img src="assets\bascket.png" alt="bascket">
+                </div>
+                <div class="header-user-menu-singup" data-title="Accaunt manager for User"><img src="assets\sing_in.png"
+                        alt="sing-in"></div>
+            </div>
+        </div>
+    </header>
+    <div class="header-surface">Surface<span class="arrow"></span>
+    </div>
+
+    <script>let menu = document.querySelector(
+            ".header-navigation-menu");
+        let menuKlick = document.querySelector(
+            ".header-navigation-menu");
+        let menu2 = document.querySelector(
+            ".header-navigation-menu-up");
+        let menuDown = document.querySelector(
+            ".header-navigation-menulist");
+
+        menuKlick.onclick = function () {
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                menu2.classList.remove('active');
+                menuDown.classList.remove('active');
+            } else {
+                menu.classList.add('active');
+                menu2.classList.add('active');
+                menuDown.classList.add('active');
+            }
+        }</script>
+</body>
+
+</html>
